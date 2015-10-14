@@ -30,9 +30,9 @@ names(data.test) = c("subject", "activity", feature.list$featureName[feature.lis
 data = rbind(data.test, data.train) %>% group_by(subject, activity) %>% summarise_each(funs(mean));
 activity.labels = fread(paste(dataset_dir, "/activity_labels.txt", sep=""), sep=" ", col.names = c("id", "activity_name"), header = FALSE, colClasses = "character", stringsAsFactors = FALSE);
 
-data$Label = factor(data$activity, levels = activity.labels$id, labels = activity.labels$activity_name);
+data$activity = factor(data$activity, levels = activity.labels$id, labels = activity.labels$activity_name);
 rm(data.test, data.train, data.x, data.y, data.subject);
 
 # export data
-write.table(data, file = "data.txt", sep = "\t");
+write.table(data, file = "data.txt", quote = FALSE, sep = "\t");
 return
